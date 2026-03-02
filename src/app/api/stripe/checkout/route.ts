@@ -5,13 +5,13 @@ import { db } from "@/lib/db";
 import { getStripe } from "@/lib/stripe";
 
 export async function POST() {
-  const session = await getServerSession(authOptions);
-
-  if (!session?.user?.id || !session.user.email) {
-    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
-  }
-
   try {
+    const session = await getServerSession(authOptions);
+
+    if (!session?.user?.id || !session.user.email) {
+      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    }
+
     const stripe = getStripe();
     const priceId = process.env.STRIPE_PRICE_ID;
     const appUrl = process.env.NEXT_PUBLIC_APP_URL;
@@ -66,7 +66,7 @@ export async function POST() {
     return NextResponse.json({ url: checkoutSession.url });
   } catch (error) {
     console.error("Stripe checkout error", error);
-    const message = error instanceof Error ? error.message : "Unable to open checkout.";
+    const message = error instanceof Error ? error.message : "Unable to open checkout due to a server error.";
     return NextResponse.json({ error: message }, { status: 500 });
   }
 }
