@@ -1,4 +1,27 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+## SupportReply AI
+
+Tool-first SEO support reply generator with 10 high-intent pages and on-page generators.
+
+## Legal posture
+
+This project includes baseline legal pages (`/terms`, `/privacy`, `/disclaimer`) and liability-limiting language, but it does not guarantee full legal protection in every jurisdiction or use case. Have a licensed attorney review your live policies, billing terms, data handling, and customer communication workflows before launch.
+
+## Completion status
+
+Product is functionally near launch-ready. Remaining work is mostly configuration + legal review:
+
+- Replace placeholders in legal pages (`[LEGAL ENTITY NAME]`, jurisdiction/venue, legal contacts).
+- Confirm Stripe production keys, price id, and webhook endpoint in production.
+- Add your business support contact for privacy/legal requests.
+- Have counsel review terms/privacy/disclaimer for your target markets.
+- Run end-to-end test in production mode (`signup -> upgrade -> webhook -> Pro save`).
+
+## Pricing recommendation
+
+Recommended launch price: **$79/month Pro**.
+
+- Target math: about **64 active customers** to reach $5,000 MRR.
+- Why this point: more attainable conversion than $99 while maintaining healthy ARPU versus low-ticket pricing.
 
 ## Getting Started
 
@@ -16,21 +39,56 @@ bun dev
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Environment variables
+
+Create a `.env.local` file:
+
+```bash
+DATABASE_URL="file:./dev.db"
+AUTH_SECRET="replace-with-a-long-random-secret"
+NEXT_PUBLIC_APP_URL="http://localhost:3000"
+
+STRIPE_SECRET_KEY="sk_test_..."
+STRIPE_PRICE_ID="price_..."
+STRIPE_WEBHOOK_SECRET="whsec_..."
+```
+
+- `AUTH_SECRET`: required by NextAuth.
+- `STRIPE_PRICE_ID`: recurring Pro plan price id.
+- `STRIPE_WEBHOOK_SECRET`: used to validate Stripe webhook signatures.
+
+Billing routes implemented:
+
+- Checkout: `/api/stripe/checkout`
+- Billing portal: `/api/stripe/portal`
+
+If Stripe env vars are not set, app still runs and billing endpoints return configuration errors.
+
+## Database setup
+
+```bash
+npm run db:push
+npm run db:generate
+```
+
+This creates a local SQLite DB and generates Prisma client.
+
+## Stripe webhook (local)
+
+Use Stripe CLI to forward webhooks:
+
+```bash
+stripe listen --forward-to localhost:3000/api/stripe/webhook
+```
+
+Copy the generated webhook secret into `STRIPE_WEBHOOK_SECRET`.
+
+You can start editing the page by modifying `src/app/page.tsx`. The page auto-updates as you edit the file.
 
 This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
 
-## Learn More
+## Build
 
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+```bash
+npm run build
+```
