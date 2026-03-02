@@ -44,7 +44,7 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 Create a `.env.local` file:
 
 ```bash
-DATABASE_URL="file:./dev.db"
+DATABASE_URL="postgresql://USER:PASSWORD@HOST:5432/DATABASE?sslmode=require"
 AUTH_SECRET="replace-with-a-long-random-secret"
 NEXT_PUBLIC_APP_URL="http://localhost:3000"
 
@@ -71,7 +71,7 @@ npm run db:push
 npm run db:generate
 ```
 
-This creates a local SQLite DB and generates Prisma client.
+This syncs your Prisma schema to Postgres and generates Prisma client.
 
 ## Stripe webhook (local)
 
