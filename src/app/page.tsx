@@ -53,7 +53,7 @@ export default function Home() {
                 href={`/reply/${template.slug}`}
                 className="mt-4 inline-flex rounded-xl bg-black px-3 py-2.5 text-sm font-medium text-white transition duration-200 group-hover:bg-zinc-800"
               >
-                {isFreeTemplateSlug(template.slug) ? "Try free generator" : "Unlock with Pro"}
+                {isFreeTemplateSlug(template.slug) ? "Try free generator" : "Open generator"}
               </Link>
             </article>
           ))}
