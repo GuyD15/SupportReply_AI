@@ -157,6 +157,32 @@ export async function POST(request: Request) {
       }
       break;
     }
+    case "charge.refunded": {
+      // Revoke Pro access immediately when a full refund is issued.
+      // Partial refunds (e.g. goodwill credits) do not change entitlement status.
+      const charge = event.data.object as Stripe.Charge;
+      if (charge.amount_refunded < charge.amount) {
+        break;
+      }
+      const customerId = typeof charge.customer === "string" ? charge.customer : null;
+      if (!customerId) break;
+      const user = await resolveUserByStripeContext({ customerId });
+
+      if (user) {
+        await db.entitlement.upsert({
+          where: { userId: user.id },
+          create: {
+            userId: user.id,
+            tier: "pro",
+            status: "inactive",
+          },
+          update: {
+            status: "inactive",
+          },
+        });
+      }
+      break;
+    }
     default:
       break;
   }
