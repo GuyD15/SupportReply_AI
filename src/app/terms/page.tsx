@@ -14,10 +14,6 @@ export default function TermsPage() {
 
         <div className="mt-8 space-y-4 text-sm leading-7 text-black/80">
           <p>
-            <strong>Important:</strong> These terms are a strong template, not a substitute for legal
-            advice. Have counsel review before production use.
-          </p>
-          <p>
             By using SupportReply AI, you agree to use the service only for lawful business purposes and in
             compliance with consumer protection, marketing, privacy, and industry-specific regulations that
             apply to you.
@@ -26,6 +22,13 @@ export default function TermsPage() {
             The service provides AI-generated draft content. You are solely responsible for reviewing,
             editing, and approving all outputs before use. Generated outputs may be inaccurate,
             non-compliant, or unsuitable for your context.
+          </p>
+          <p>
+            <strong>Subscription billing and cancellation:</strong> Pro subscriptions are billed monthly.
+            If you cancel your subscription, your Pro access remains active through the end of the current
+            billing period. You will not be charged for the following period. If a refund is issued on your
+            account, Pro access is revoked immediately upon processing of the refund, and re-access
+            requires a new subscription purchase.
           </p>
           <p>
             To the maximum extent permitted by law, the service is provided "as is" without warranties of
@@ -69,8 +72,13 @@ export default function TermsPage() {
             use of the service and that you are authorized to bind your organization.
           </p>
           <p>
-            Contact for legal notices: ReplyOps, guywdomino.dev@gmail.com, [MAILING ADDRESS REQUIRED BEFORE
-            PRODUCTION].
+            Contact for legal notices: ReplyOps —{" "}
+            <a
+              href="mailto:guywdomino.dev@gmail.com"
+              className="underline transition hover:text-black"
+            >
+              guywdomino.dev@gmail.com
+            </a>
           </p>
         </div>
       </section>
