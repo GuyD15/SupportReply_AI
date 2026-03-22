@@ -33,6 +33,17 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     alternates: {
       canonical: `/reply/${template.slug}`,
     },
+    openGraph: {
+      title: template.title,
+      description: template.description,
+      url: `/reply/${template.slug}`,
+      type: "website",
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: template.title,
+      description: template.description,
+    },
   };
 }
 
@@ -44,8 +55,32 @@ export default async function ReplyTemplatePage({ params }: PageProps) {
     notFound();
   }
 
+  const breadcrumbSchema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      {
+        "@type": "ListItem",
+        position: 1,
+        name: "SupportReply AI",
+        item: "https://supportreply.ai",
+      },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: template.title,
+        item: `https://supportreply.ai/reply/${template.slug}`,
+      },
+    ],
+  };
+
   return (
     <main className="mx-auto max-w-6xl px-6 py-10">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+      />
+
       <nav className="mb-6 text-sm text-black/70">
         <Link className="transition hover:text-black hover:underline" href="/">
           SupportReply AI
@@ -73,8 +108,13 @@ export default async function ReplyTemplatePage({ params }: PageProps) {
       </section>
 
       <section className="mt-6 flex flex-wrap items-center justify-between gap-3 rounded-2xl border border-black/10 bg-white p-4 shadow-sm">
-        <p className="text-sm text-black/70">Need unlimited replies and saved playbooks for repeat cases? Start Pro.</p>
-        <Link href="/pricing" className="rounded-xl bg-black px-4 py-2.5 text-sm font-medium text-white transition hover:bg-zinc-800">
+        <p className="text-sm text-black/70">
+          Need unlimited replies and saved playbooks for repeat cases? Start Pro.
+        </p>
+        <Link
+          href="/pricing"
+          className="rounded-xl bg-black px-4 py-2.5 text-sm font-medium text-white transition hover:bg-zinc-800"
+        >
           Start Pro plan
         </Link>
       </section>
