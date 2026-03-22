@@ -4,12 +4,39 @@ import { AccountMenu } from "@/components/auth/account-menu";
 import "./globals.css";
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://supportreply.ai"),
   title: {
-    default: "SupportReply AI",
+    default: "SupportReply AI — AI-Powered Customer Support Reply Generator",
     template: "%s | SupportReply AI",
   },
   description:
-    "Generate support replies in seconds with policy-safe tone controls and export formats for Gmail, Zendesk, and Intercom.",
+    "Generate policy-safe customer support replies in seconds. Export to Gmail, Zendesk, and Intercom. 10 high-impact support templates for refunds, shipping delays, chargebacks, and more.",
+  keywords: [
+    "customer support reply generator",
+    "AI support templates",
+    "support email generator",
+    "Zendesk macro generator",
+    "Intercom snippet generator",
+    "refund reply template",
+    "shipping delay response",
+    "customer service AI",
+    "support ticket reply",
+  ],
+  openGraph: {
+    type: "website",
+    siteName: "SupportReply AI",
+    title: "SupportReply AI — AI-Powered Customer Support Reply Generator",
+    description:
+      "Generate policy-safe customer support replies in seconds. Export to Gmail, Zendesk, and Intercom.",
+    url: "https://supportreply.ai",
+  },
+  twitter: {
+    card: "summary_large_image",
+    site: "@supportreplyai",
+    title: "SupportReply AI",
+    description:
+      "Generate support replies in seconds with AI. Export to Gmail, Zendesk, and Intercom.",
+  },
 };
 
 export default function RootLayout({
